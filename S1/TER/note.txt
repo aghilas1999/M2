@@ -19,3 +19,24 @@ Un Hyperarête et une arret qui regroupe plusieur sommet en meme temps.
 |Complexité algorithmique
 |La complexité en O(m^2) suggère que le temps d'exécution de cet algorithme augmente quadratiquement avec le nombre d'hyperarêtes. Cela |signifie que l'algorithme peut devenir très lent avec des hypergraphes très denses.
 ---------------------------------------------------------------------------------------------------------------------------------------
+
+
+------------------------------------
+| * accidents
+| 
+| PS C:\Users\aghil\OneDrive\Bureau\Master-2-main\S1\TER> java -Xmx2000m -cp Code\Code\fibad\podami.jar  podami.hypergraph.reduction.HR Hypergraphes_Datasets_Expes\accidents\ac_110k.dat true
+| 326048.0 ms
+|
+| PS C:\Users\aghil\OneDrive\Bureau\Master-2-main\S1\TER> java -Xmx2000m -cp Code\Code\HypReduction_multithread\podami.jar  podami.hypergraph.reductionmulti.HRmulti Hypergraphes_Datasets_Expes\accidents\ac_110k.dat true 16
+| 287398.0 ms
+|
+| *  BMS-WebVeiw2
+|
+| PS C:\Users\aghil\OneDrive\Bureau\Master-2-main\S1\TER> java -Xmx2000m -cp Code\Code\fibad\podami.jar  podami.hypergraph.reduction.HR Hypergraphes_Datasets_Expes\BMS-WebVeiw2\bms2_200.dat true
+| 13034.0 ms
+|
+| PS C:\Users\aghil\OneDrive\Bureau\Master-2-main\S1\TER> java -Xmx2000m -cp Code\Code\HypReduction_multithread\podami.jar  podami.hypergraph.reductionmulti.HRmulti Hypergraphes_Datasets_Expes\BMS-WebVeiw2\bms2_200.dat true 16
+| 18615.0 ms
+|
+| *  chess
+|
