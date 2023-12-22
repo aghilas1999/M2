@@ -1,0 +1,189 @@
+
+Donnees (5 transactions, 8 items) 
+Calcul des complementaires
+
+complements de la bordure positive :
+{
+1,2,3,4,5,7
+1,4,5,6,7,8
+2,3,4,5,6,7,8
+1,2,4,5,6,7
+1,2,4,6,7,8
+}
+Calcul des tr min avec red
+D:\Travail\workspace2\TER_M2SID\data\exemple.txt.3.pos red 3
+
+Hypergraphe =
+8 sommets ; 5 hyperaretes
+Ensemble des hyperaretes : 
+{
+1,2,3,4,5,7
+1,4,5,6,7,8
+2,3,4,5,6,7,8
+1,2,4,5,6,7
+1,2,4,6,7,8
+}
+
+Occurrences des sommets dans les hyperaretes : 
+{1=4, 2=4, 3=2, 4=5, 5=4, 6=4, 7=5, 8=3}
+
+Calcul des intersections et des poids des aretes
+cbs= 1,2,3,4,5,7
+cbs2= 1,4,5,6,7,8
+inter= {1, 4, 5, 7} (18.0)
+
+cbs= 1,2,3,4,5,7
+cbs2= 2,3,4,5,6,7,8
+inter= {2, 3, 4, 5, 7} (20.0)
+
+cbs= 1,2,3,4,5,7
+cbs2= 1,2,4,5,6,7
+inter= {1, 2, 4, 5, 7} (22.0)
+
+cbs= 1,2,3,4,5,7
+cbs2= 1,2,4,6,7,8
+inter= {1, 2, 4, 7} (18.0)
+
+cbs= 1,4,5,6,7,8
+cbs2= 2,3,4,5,6,7,8
+inter= {4, 5, 6, 7, 8} (21.0)
+
+cbs= 1,4,5,6,7,8
+cbs2= 1,2,4,5,6,7
+inter= {1, 4, 5, 6, 7} (22.0)
+
+cbs= 1,4,5,6,7,8
+cbs2= 1,2,4,6,7,8
+inter= {1, 4, 6, 7, 8} (21.0)
+
+cbs= 2,3,4,5,6,7,8
+cbs2= 1,2,4,5,6,7
+inter= {2, 4, 5, 6, 7} (22.0)
+
+cbs= 2,3,4,5,6,7,8
+cbs2= 1,2,4,6,7,8
+inter= {2, 4, 6, 7, 8} (21.0)
+
+cbs= 1,2,4,5,6,7
+cbs2= 1,2,4,6,7,8
+inter= {1, 2, 4, 6, 7} (22.0)
+
+
+Graphe des hyperaretes :
+1-2(18.0) 1-3(20.0) 1-4(22.0) 1-5(18.0) 2-3(21.0) 2-4(22.0) 2-5(21.0) 3-4(22.0) 3-5(21.0) 4-5(22.0) 
+
+
+valmax=22.0 i=1 j=4
+
+EnsemblesSupports = 
+{
+1,2,4,5,7
+}
+
+Nouveau graphe :
+2-3(21.0) 2-5(21.0) 3-5(21.0) 
+
+
+valmax=21.0 i=2 j=3
+
+EnsemblesSupports = 
+{
+1,2,4,5,7
+4,5,6,7,8
+}
+
+Nouveau graphe :
+
+
+
+Plus d'aretes dans le graphe.
+
+Hypergraphe reduit :
+{
+1,2,4,5,7
+4,5,6,7,8
+}
+Hypergraphe reduit : 7 sommets ; 2 hyperaretes
+Fin.
+reduction= 0.0 ms
+hypergraphe= 8 sommets ; 5 hyperaretes
+hypreduit= 7 sommets ; 2 hyperaretes
+hypreduit est min ? true
+dlReduc= 0.0 ms
+REDetDL= 0.0 ms
+
+bordure negative :
+{
+4
+5
+7
+1,6
+1,8
+2,6
+2,8
+}
+
+Donnees chargees :
+{
+4
+7
+2,6
+2,8
+3,6
+1,2
+1,3
+1,6
+1,8
+1,5
+2,5
+5,6
+5,8
+}
+
+3 0.0 0.39644660940672627 7 1.5714285714285714 1 2
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+Donnees (10 transactions, 8 items) 
+Bordure negative =
+{
+4
+5
+7
+1,6
+1,8
+2,6
+2,8
+}
+Calcul des tr min avec dl
+D:\Travail\workspace2\TER_M2SID\data\exemple.txt.3.pos.red.neg.cb dl 3
+dl= 0.0 ms
+
+traverses minimales :
+{
+4,5,6,7,8
+1,2,4,5,7
+}
+Calcul des complementaires
+
+bordure positive :
+{
+1,2,3
+3,6,8
+}
+
+Donnees chargees :
+{
+6,8
+2,3
+1
+3,8
+3,5
+}
+
+3 0.0 0.38762756430420536 2 3.0 3 3
+
