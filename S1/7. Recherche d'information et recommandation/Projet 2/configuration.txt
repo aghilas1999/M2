@@ -1,0 +1,12 @@
+Fair la configuration de elastic et kibana:
+ 
+ Premirement aprés l'instalation de elastic et kibana vous ouvrez 2 terminal, vous lancer le serveur elastic sur un terminal, 
+  Une fois et lancé , maintenant vous allez lancé le serveur de kibana, une fois c'est fait vous deverez allez dans le navigator et taper de lien :
+	
+http://localhost:5601 Pour kibana et http://localhost:9200 pour elasticsearch
+
+aprés avoir lancer http://localhost:5601 vous allez vous routrouver avec une fenetre qui vous demande de taper le token pour vous configurer kibana avec elastic
+le token vous le trouver dans le terminal de serveur elastic , vous scrollé vers le haut et vous le trouvez, vous copier collé le token dans la page web et 
+vous fait la configuration , aprés celui ces et fait , vous remarqué une page web qyu affiche avec le user et le mote de passe pour connecter , vous le user est :
+elastic | et pour le mote de passe vous le trouvez aussi dans le terminal just en haut du token (dans le serveur de elastic), vous trouvez un scren qui explique cela 
+et Voila aprés avoir fait cela vous etre connecter let's goooooooooo

@@ -1,0 +1,17 @@
+<rdf:RDF xmlns:ex="http://example.org/stuff/1.0/"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="http://www.example.org/index.html">
+    <ex:auteur rdf:resource="http://www.example.org/auteur#JohnSmith"/>
+    <ex:theme>langage RDF</ex:theme>
+    <ex:parties>
+      <rdf:Bag>
+        <rdf:_1>Introduction</rdf:_1>
+        <rdf:_2>syntaxe</rdf:_2>
+        <rdf:_3>modèle</rdf:_3>
+        <rdf:_4>données</rdf:_4>
+      </rdf:Bag>
+    </ex:parties>
+    <ex:duree>6h</ex:duree>
+  </rdf:Description>
+</rdf:RDF>
+
