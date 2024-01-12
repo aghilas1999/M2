@@ -45,22 +45,25 @@ class ContentRecommendation:
         # Create binary columns for each genre using one-hot encoding
         genres_one_hot = df_merged.genres.apply(lambda x: pd.Series(1, index=x)).fillna(0)
         genres_one_hot = genres_one_hot.groupby(df_merged.movieId).sum()
+        genres_one_hot = genres_one_hot.applymap(lambda x: 1 if x != 0.0 else 0)
 
         # Concatenate one-hot encoded genres with the merged dataframe
         df_final = pd.merge(df_merged.drop('genres', axis=1), genres_one_hot, left_on='movieId', right_index=True)
 
         # Pivot and create movie-user matrix with one-hot encoded genres
-        movie_genre_mat = df_final.pivot_table(
-            index='movieId', columns='userId', values='rating').fillna(0)
+        # movie_genre_mat = df_final.pivot_table(
+        #     index='movieId', columns='userId', values='rating').fillna(0)
         print('test est passé')
+        df_final = df_final.reset_index()
+        
         return df_final
         
 
 # Exemple d'utilisation
 recommender = ContentRecommendation('movies.csv', 'ratings.csv')
 test = recommender._prep_data()
-display(test)
-#test.to_csv('test.csv',index=True)
+#display(test)
+test.to_csv('test.csv',index=True)
   # def _content_based_user_similarity(self, movie_genre_mat, user_id):
             
     #     """
