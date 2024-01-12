@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 from sklearn.feature_extraction.text import CountVectorizer
 from IPython.display import display
+from sklearn.metrics.pairwise import cosine_similarity
 
 
 class ContentRecommendation:
@@ -19,7 +20,9 @@ class ContentRecommendation:
         self.path_movies = path_movies
         self.path_ratings = path_ratings
 
+   
     # Une fonction de préparation des données que nous allons utiliser dans la recommandation.
+    '''Def Prepa Done'''
     def _prep_data(self):
         """
         Prepare data for recommender, including movie genres
@@ -51,27 +54,57 @@ class ContentRecommendation:
         df_final = pd.merge(df_merged.drop('genres', axis=1), genres_one_hot, left_on='movieId', right_index=True)
 
         # Pivot and create movie-user matrix with one-hot encoded genres
-        # movie_genre_mat = df_final.pivot_table(
+        # df_final = df_final.pivot_table(
         #     index='movieId', columns='userId', values='rating').fillna(0)
         print('test est passé')
-        df_final = df_final.reset_index()
+        df_final1 = df_final.reset_index()
         
-        return df_final
+        return df_final1
+    
+    '''Def calcul similarity'''
+    def _genre_similarity(self, user_id, df_final): 
         
+        user_similarity = []  # Initialisez la liste pour stocker les similarités
 
-# Exemple d'utilisation
+        user_genres = df_final[df_final['userId'] == user_id].drop(['index', 'userId', 'movieId', 'rating'], axis=1).squeeze()
+        all_genres = df_final[df_final['userId'] != user_id].drop(['index', 'userId', 'movieId', 'rating'], axis=1).squeeze()
+
+        print("Dimensions de user_genres avant reshape:", user_genres.shape)
+        user_genres_reshaped = user_genres.values
+        print("Dimensions de user_genres après reshape:", user_genres_reshaped.shape)
+
+        print("Dimensions de all_genres avant reshape:", all_genres.shape)
+        all_genres_reshaped = all_genres.values
+        print("Dimensions de all_genres après reshape:", all_genres_reshaped.shape)
+        # Calculez la similarité cosinus
+        cosine_sim = cosine_similarity(user_genres_reshaped, all_genres_reshaped)
+
+        user_similarity.append(cosine_sim)
+
+        user_similarity = np.array(user_similarity)
+        return user_genres, all_genres, user_similarity
+# # Exemple d'utilisation   
 recommender = ContentRecommendation('movies.csv', 'ratings.csv')
-test = recommender._prep_data()
-#display(test)
-test.to_csv('test.csv',index=True)
-  # def _content_based_user_similarity(self, movie_genre_mat, user_id):
+df_final = recommender._prep_data()  # Assurez-vous d'avoir les données préparées
+user_id = 1  # Remplacez cela par l'ID de l'utilisateur que vous souhaitez tester
+
+user_genres, all_genres, genre_similarity = recommender._genre_similarity(user_id,df_final)
+
+# Affichez les résultats
+print("Genres de l'utilisateur:")
+print(user_genres)
+print("\nTous les genres:")
+print(all_genres)
+print("\nSimilarités de genre:")
+print(genre_similarity)
+#   # def _content_based_user_similarity(self, df_final, user_id):
             
     #     """
     #     Calcule la similarité entre les utilisateurs en utilisant la similarité cosinus basée sur le contenu (genres des films).
 
     #     Parameters
     #     ----------
-    #     movie_genre_mat : pandas DataFrame, matrice utilisateur-genre (binaire)
+    #     df_final : pandas DataFrame, matrice utilisateur-genre (binaire)
 
     #     user_id : int, ID de l'utilisateur pour lequel on veut calculer la similarité
 
@@ -82,10 +115,10 @@ test.to_csv('test.csv',index=True)
         
     #     user_similarity = []  # Initialisez la liste pour stocker les similarités
 
-    #     for suser in movie_genre_mat.index:
+    #     for suser in df_final.index:
     #         # Récupérez les genres regardés par l'utilisateur et l'utilisateur similaire
-    #         genres_user = movie_genre_mat.loc[user_id]
-    #         genres_suser = movie_genre_mat.loc[suser]
+    #         genres_user = df_final.loc[user_id]
+    #         genres_suser = df_final.loc[suser]
 
     #         # Calculez le nombre de genres en commun
     #         common_genres_count = np.sum((genres_user == 1) & (genres_suser == 1))
@@ -100,4 +133,3 @@ test.to_csv('test.csv',index=True)
 
     #     user_similarity = np.array(user_similarity)
     #     return user_similarity
-
