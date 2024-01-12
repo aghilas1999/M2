@@ -22,44 +22,43 @@ class ContentRecommendation:
     # Une fonction de préparation des données que nous allons utiliser dans la recommandation.
     def _prep_data(self):
         """
-        Prepare data for content-based recommender.
+        Prepare data for recommender, including movie genres
         """
-        # read data
-        movies = pd.read_csv(
+        # Read ratings data
+        df_ratings = pd.read_csv(
+            os.path.join(self.path_ratings),
+            usecols=['userId', 'movieId', 'rating'],
+            dtype={'userId': 'int32', 'movieId': 'int32', 'rating': 'float32'})
+
+        # Read movies data to get genres
+        df_movies = pd.read_csv(
             os.path.join(self.path_movies),
             usecols=['movieId', 'genres'],
             dtype={'movieId': 'int32', 'genres': 'str'})
 
-        # Create a matrix where each row represents a movie and each column represents a genre
-        vectorizer = CountVectorizer(tokenizer=lambda x: x.split('|'), token_pattern=None)
-        genre_matrix = vectorizer.fit_transform(movies['genres'])
+        # Merge ratings and movies data on 'movieId'
+        df_merged = pd.merge(df_ratings, df_movies, on='movieId')
 
-        # Add user_id column to the genre_matrix
-        user_id_column = np.zeros((genre_matrix.shape[0], 1))  # Create a column of zeros
-        genre_matrix_with_user = pd.concat([pd.DataFrame(user_id_column, columns=['userId']), pd.DataFrame(genre_matrix.toarray())], axis=1)
+         # Split genres into a list
+        df_merged['genres'] = df_merged['genres'].apply(lambda x: x.split('|'))
 
-        return genre_matrix_with_user
-       
+        # Create binary columns for each genre using one-hot encoding
+        genres_one_hot = pd.get_dummies(df_merged['genres'].apply(pd.Series).stack()).sum(level=0)
 
+        # Concatenate one-hot encoded genres with the merged dataframe
+        df_final = pd.concat([df_merged, genres_one_hot], axis=1)
+
+        # Pivot and create movie-user matrix with one-hot encoded genres
+        movie_genre_mat = df_final.pivot_table(
+            index='movieId', columns='userId', values='rating').fillna(0)
+
+        return df_final
   
 
 # Exemple d'utilisation
 recommender = ContentRecommendation('movies.csv', 'ratings.csv')
-genre_matrix_with_user = recommender._prep_data()
-
-if genre_matrix_with_user is not None:
-    # Vous pouvez afficher la matrice si vous le souhaitez
-    display(genre_matrix_with_user)
-
-    # Sauvegarder la matrice dans un fichier CSV
-    genre_matrix_with_user.to_csv('resulta.csv', index=False)
-    print("Résultat enregistré avec succès dans 'resulta.csv'.")
-else:
-    print("Erreur: La matrice est None, impossible d'enregistrer le résultat.")
-
-
-
-
+test = recommender._prep_data()
+test.to_csv('test1.csv',index=True)
 
   # def _content_based_user_similarity(self, movie_genre_mat, user_id):
             
