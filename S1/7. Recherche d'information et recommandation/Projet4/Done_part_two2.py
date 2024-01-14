@@ -23,6 +23,9 @@ class ContentRecommendation:
         self.path_ratings = path_ratings
 
    
+   
+   
+   
     # Une fonction de préparation des données que nous allons utiliser dans la recommandation.
     '''Def Prepa Done'''
     def _prep_data(self):
@@ -59,93 +62,122 @@ class ContentRecommendation:
         # df_final = df_final.pivot_table(
         #     index='movieId', columns='userId', values='rating').fillna(0)
         print('test est passé')
-        df_final1 = df_final.reset_index()
+        df_final1 = df_final.reset_index(drop=True)
         
         return df_final1
     
+    
+    
+    
+    
     '''Def calcul similarity'''
-    def _genre_similarity(self, user_id, df_final): 
-        user_similarity = []  # Initialisez la liste pour stocker les similarités
-
-        user_genres = df_final[df_final['userId'] == user_id].drop(['userId', 'movieId', 'rating', 'index'], axis=1).squeeze()
-        all_genres = df_final[df_final['userId'] != user_id].drop(['userId', 'movieId', 'rating', 'index'], axis=1).squeeze()
-
-        print("Dimensions de user_genres avant reshape:", user_genres.shape)
-        user_genres_reshaped = user_genres.values
-        print("Dimensions de user_genres après reshape:", user_genres_reshaped.shape)
-
-        print("Dimensions de all_genres avant reshape:", all_genres.shape)
-        all_genres_reshaped = all_genres.values
-        print("Dimensions de all_genres après reshape:", all_genres_reshaped.shape)
+    def _genre_similarity(self, user_id, df): 
+        # Récupérer les genres des films que l'utilisateur a regardés
+        user_genres = df[df['userId'] == user_id].drop(['userId'], axis=1).squeeze()
         
-        # Réduire la dimensionnalité avec Truncated SVD
-        # svd = TruncatedSVD(n_components=50)
-        # user_genres_reduced = svd.fit_transform(user_genres_reshaped)
-        # all_genres_reduced = svd.transform(all_genres_reshaped)
-        # Calculez la similarité cosinus
-        cosine_sim = cosine_similarity(user_genres_reshaped, all_genres_reshaped)
+        # Récupérer les films qui ont les mêmes genres que ceux que l'utilisateur a regardés
+        similar_genre_movies = df[df['userId'] != user_id].drop(['userId'], axis=1).squeeze()
 
-        user_similarity.append(cosine_sim)
+    
+        display(user_genres)
+        display(similar_genre_movies)
+        similarity = cosine_similarity(user_genres,similar_genre_movies)
+        # similar_movies_indices = np.argsort(similarity[0])[::-1]
+        return similarity
+        # print("Dimensions de user_genres avant reshape:", user_genres.shape)
+        # user_genres_reshaped = user_genres.values
+        # print("Dimensions de user_genres après reshape:", user_genres_reshaped.shape)
 
-        user_similarity = np.array(user_similarity)
-        return user_genres, all_genres, user_similarity
-    print('je suis la ')
+        # print("Dimensions de all_genres avant reshape:", all_genres.shape)
+        # all_genres_reshaped = all_genres.values
+        # print("Dimensions de all_genres après reshape:", all_genres_reshaped.shape)
+        
+        # # Réduire la dimensionnalité avec Truncated SVD
+        # # svd = TruncatedSVD(n_components=50)
+        # # user_genres_reduced = svd.fit_transform(user_genres_reshaped)
+        # # all_genres_reduced = svd.transform(all_genres_reshaped)
+        # # Calculez la similarité cosinus
+        # cosine_sim = cosine_similarity(user_genres_reshaped, all_genres_reshaped)
+
+        # user_similarity.append(cosine_sim)
+
+        # user_similarity = np.array(user_similarity)
+        # return user_genres, all_genres, user_similarity
+
+
+
+
+
 
     def make_genre_recommendations(self, user_id, n_recommendations):
         """
-        Fait des recommendation basée sur les genre pour un utilisateur donné.
+        Fait des recommandations basées sur les genres pour un utilisateur donné.
         """
-        # get data frome _prep_data.
+        # Obtenir les données à partir de _prep_data.
         df_final = self._prep_data()
-        print("Type de df_final avant l'appel à _genre_similarity:", type(df_final))
 
-        # calcule la similarité entre les genres
-        #genre_similarity = self._genre_similarity(df_final,user_id)
-        # trouvez les genres similaires
-        user_genres, all_genres, genre_similarity = self._genre_similarity(user_id, df_final)
-        #trouvez les genres non regarder par l'utilisateur
-        unwatched_movies = df_final.loc[df_final[user_id] == 0]
+        # Calculer la similarité entre les genres
+        genre_similarity = self._genre_similarity(user_id, df_final)
 
-        
-        recommendation = []
-        
-        for movie_id in unwatched_movies.iterrows: 
+        # Sélectionner les films non regardés par l'utilisateur
+        unwatched_movies = df_final.loc[(df_final['userId'] == user_id) & df_final['rating'].isnull()]
+
+        recommendations = []
+
+        for movie_id, row in unwatched_movies.iterrows():
             similarity_sum = 0
-            weighted_rating_sum = 0 
-            movie_genres = all_genres.loc[movie_id]
-            
+            weighted_rating_sum = 0
+            movie_genres = row.drop(['index', 'userId', 'movieId', 'rating'])
+
             for genre_index, genre in enumerate(all_genres.columns):
-                if movie_genres[genre] > 0: # Le film a ce genre
+                if movie_genres[genre] > 0:  # Le film a ce genre
                     similarity = genre_similarity[0][genre_index]
-                    weighted_rating_sum +=similarity
+                    weighted_rating_sum += similarity
                     similarity_sum += np.abs(similarity)
-                    
+
             if similarity_sum > 0:
                 user_mean_rating = np.mean(df_final[user_id][df_final[user_id] != 0])
                 predicted_rating = user_mean_rating + (weighted_rating_sum / similarity_sum)
-                recommendation.append((movie_id, predicted_rating))
-                
-                print("movie : ", movie_id, "predicted rating : ", predicted_rating)
-        # trie les recommandations par rating prédit
-        recommendations = sorted(recommendations, key=lambda x: x[1], reverse=True)
-        
-        # renvoie les IDs des films recommandés
-        return [movie_id for movie_id, _ in recommendations[:n_recommendations]]
-    print(" je suis la ")
-# Exemple d'utilisation
-recommender = ContentRecommendation('movies.csv', 'ratings.csv')
-user_id = 1  # Remplacez cela par l'ID de l'utilisateur que vous souhaitez tester
-n_recommendations = 5
+                recommendations.append((movie_id, predicted_rating))
 
-genre_recommendations = recommender.make_genre_recommendations(user_id, n_recommendations)
-print("Genre Recommendations:", genre_recommendations)
+                print("movie : ", movie_id, "predicted rating : ", predicted_rating)
+
+        # Trier les recommandations par rating prédit
+        recommendations = sorted(recommendations, key=lambda x: x[1], reverse=True)
+
+        # Renvoyer les IDs des films recommandés
+        return [movie_id for movie_id, _ in recommendations[:n_recommendations]]
+
+  
+# # Exemple d'utilisation
+# recommender = ContentRecommendation('movies.csv', 'ratings.csv')
+# user_id = 1  # Remplacez cela par l'ID de l'utilisateur que vous souhaitez tester
+# n_recommendations = 5
+
+# genre_recommendations = recommender.make_genre_recommendations(user_id, n_recommendations)
+# print("Genre Recommendations:", genre_recommendations)
         
         
-        
-# # Exemple d'utilisation   
+# Create an instance of ContentRecommendation
+recommendation_system = ContentRecommendation(path_movies='movies.csv', path_ratings='ratings.csv')
+
+# Prepare data using the _prep_data method
+df_final = recommendation_system._prep_data()
+
+# Choose a user_id for testing (replace it with an actual user_id from your dataset)
+user_id_to_test = 1
+
+# Call the _genre_similarity method
+user_genres = recommendation_system._genre_similarity(user_id=user_id_to_test, df=df_final)
+
+# Print or display the result
+print(user_genres)
+
+# # # Exemple d'utilisation   
 # recommender = ContentRecommendation('movies.csv', 'ratings.csv')
 # df_final = recommender._prep_data()  # Assurez-vous d'avoir les données préparées
 # display(df_final)
+# df_final.to_csv('test.csv',index=False)
 # user_id = 1  # Remplacez cela par l'ID de l'utilisateur que vous souhaitez tester
 
 # user_genres, all_genres, genre_similarity = recommender._genre_similarity(user_id,df_final)
@@ -199,3 +231,52 @@ print("Genre Recommendations:", genre_recommendations)
 
     #     user_similarity = np.array(user_similarity)
     #     return user_similarity
+    
+'''
+ def make_genre_recommendations(self, user_id, n_recommendations):
+        """
+        Fait des recommendation basée sur les genre pour un utilisateur donné.
+        """
+        # get data frome _prep_data.
+        df_final = self._prep_data()
+        print("Type de df_final avant l'appel à _genre_similarity:", type(df_final))
+        # trouve les utilisateurs similaires
+        # calcule la similarité entre les genres
+        user_genres, all_genres,genre_similarity = self._genre_similarity(df_final,user_id)
+        
+        similar_genres = np.argsort(genre_similarity)[::-1][1:] + 1  
+
+        # trouvez les genres similaires
+        # user_genres, all_genres, genre_similarity = self._genre_similarity(user_id, df_final)
+        #trouvez les genres non regarder par l'utilisateur
+        unwatched_movies = df_final[(df_final['userId'] == user_id) & (df_final['movieId'].isnull())]
+
+        recommendations = []
+        
+        for movie_id in unwatched_movies.index: 
+            similarity_sum = 0
+            weighted_rating_sum = 0 
+            
+            for similar_genre in similar_genres:
+                if df_final[similar_genre][movie_id] > 0: # Le film a ce genre
+                    similarity_genre = np.mean(df_final[similar_genre][df_final[similar_genre] != 0])
+                    similarity = genre_similarity[similar_genre - 1 ]
+                    weighted_rating_sum +=similarity * (df_final[similar_genre][movie_id] - similarity_genre)
+                    similarity_sum += np.abs(similarity)
+                    
+            if similarity_sum > 0:
+                user_mean_rating = np.mean(df_final[user_id][df_final[user_id] != 0])
+                predicted_rating = user_mean_rating + (weighted_rating_sum / similarity_sum)
+                recommendations.append((movie_id, predicted_rating))
+                
+                print("movie : ", movie_id, "predicted rating : ", predicted_rating)
+        # trie les recommandations par rating prédit
+        recommendations = sorted(recommendations, key=lambda x: x[1], reverse=True)
+        
+         # Afficher les IDs des films recommandés
+        recommended_movie_ids = [movie_id for movie_id, _ in recommendations[:n_recommendations]]
+        print("IDs des films recommandés:", recommended_movie_ids)
+
+        # Renvoyer les IDs des films recommandés
+        return recommended_movie_ids
+        '''
