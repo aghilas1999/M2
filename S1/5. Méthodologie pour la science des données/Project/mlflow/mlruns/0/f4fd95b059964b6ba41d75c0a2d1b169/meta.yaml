@@ -1,0 +1,16 @@
+artifact_uri: file:///c:/Files/Master_SID/S3/MSD/PredectiveMassMLOps/notebooks/mlruns/0/f4fd95b059964b6ba41d75c0a2d1b169/artifacts
+deleted_time: 1705160417299
+end_time: 1705159430736
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: deleted
+run_id: f4fd95b059964b6ba41d75c0a2d1b169
+run_name: GradientBoostingRegressor
+run_uuid: f4fd95b059964b6ba41d75c0a2d1b169
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1705159428923
+status: 3
+tags: []
+user_id: LAMARAMOUZNI

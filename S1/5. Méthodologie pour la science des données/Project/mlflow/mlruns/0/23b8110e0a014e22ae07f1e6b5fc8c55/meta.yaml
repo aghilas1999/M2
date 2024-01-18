@@ -1,0 +1,15 @@
+artifact_uri: file:///c:/Files/Master_SID/S3/MSD/PredectiveMassMLOps/notebooks/mlruns/0/23b8110e0a014e22ae07f1e6b5fc8c55/artifacts
+end_time: 1705441376992
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 23b8110e0a014e22ae07f1e6b5fc8c55
+run_name: XgboostRegressor
+run_uuid: 23b8110e0a014e22ae07f1e6b5fc8c55
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1705441374752
+status: 3
+tags: []
+user_id: LAMARAMOUZNI

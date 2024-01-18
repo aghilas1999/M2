@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Result</title>
+</head>
+<body>
+    <h1>Prediction Result</h1>
+
+    {% if is_file %}
+        <button id="downloadCsv">Download CSV</button>
+
+        <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.5/dist/FileSaver.min.js"></script>
+
+        <script>
+            var predictionData = {{ prediction | tojson | safe }};
+            predictionData = predictionData.replace(/\\n/g, '\n');
+            
+            document.getElementById("downloadCsv").addEventListener("click", function () {
+                var csvContent = predictionData;
+                var blob = new Blob([csvContent], { type: "text/csv;charset=utf-8" });
+                saveAs(blob, "prediction_result.csv");
+            });
+        </script>
+
+        
+        
+    {% else %}
+        <p>The predicted value is: {{ prediction }}</p>
+    {% endif %}
+</body>
+</html>

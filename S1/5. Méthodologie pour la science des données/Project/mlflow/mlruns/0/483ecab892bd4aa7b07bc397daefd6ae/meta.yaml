@@ -1,0 +1,15 @@
+artifact_uri: file:///c:/Files/Master_SID/S3/MSD/PredectiveMassMLOps/notebooks/mlruns/0/483ecab892bd4aa7b07bc397daefd6ae/artifacts
+end_time: 1705159339562
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 483ecab892bd4aa7b07bc397daefd6ae
+run_name: bald-eel-971
+run_uuid: 483ecab892bd4aa7b07bc397daefd6ae
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1705158740762
+status: 3
+tags: []
+user_id: LAMARAMOUZNI

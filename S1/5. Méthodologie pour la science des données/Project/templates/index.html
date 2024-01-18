@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Model Prediction Form</title>
+</head>
+<body>
+    <h1>Model Prediction Form</h1>
+
+    <!-- Form for model prediction -->
+    <form action="/predict" method="post" enctype="multipart/form-data">
+        <!-- Dropdown for selecting the model -->
+        <label for="model">Choose a model:</label>
+        <select name="model" id="model">
+            <option value="lr">Linear Regression</option>
+            <option value="gbr">Gradient Boosting Regressor</option>
+            <option value="rf">Random Forest Regression</option>
+            <option value="xgbr">Xgboost Regressor</option>
+        </select>
+        <br>
+
+        <!-- Dropdown for selecting input type (manual or file) -->
+        <label for="inputType">Input Type:</label>
+        <select name="inputType" id="inputType">
+            <option value="manual">Manual Entry</option>
+            <option value="file">Upload CSV File</option>
+        </select>
+        <br>
+
+        <!-- Div to hold the file input field (initially hidden) -->
+        <div id="fileInput" style="display:none;">
+            <label for="csvFile">Upload CSV File:</label>
+            <input type="file" name="csvFile" id="csvFile" accept=".csv">
+        </div>
+
+        <!-- Text input fields for manual entry -->
+        {% for i in range(1, 16) %}
+            <label for="sens{{ i }}" id="sensLabel{{ i }}">Sens {{ i }}:</label>
+            <input type="text" name="sens{{ i }}" id="sens{{ i }}">
+            <br>
+        {% endfor %}
+
+        <!-- Submit button -->
+        <input type="submit" value="Predict">
+    </form>
+
+    <!-- JavaScript to show/hide file input field and adjust manual entry fields based on user selection -->
+    <script>
+        document.getElementById("inputType").addEventListener("change", function () {
+            var fileInput = document.getElementById("fileInput");
+            fileInput.style.display = (this.value === "file") ? "block" : "none";
+
+            // Hide or show manual entry fields based on user selection
+            {% for i in range(1, 16) %}
+                var sensLabel{{ i }} = document.getElementById("sensLabel{{ i }}");
+                var sens{{ i }} = document.getElementById("sens{{ i }}");
+                sensLabel{{ i }}.style.display = (this.value === "file") ? "none" : "block";
+                sens{{ i }}.style.display = (this.value === "file") ? "none" : "block";
+                
+                // Remove 'required' attribute if 'file' is selected
+                sens{{ i }}.removeAttribute("required");
+            {% endfor %}
+        });
+    </script>
+</body>
+</html>

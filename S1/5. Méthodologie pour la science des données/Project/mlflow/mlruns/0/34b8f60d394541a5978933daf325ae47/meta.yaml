@@ -1,0 +1,15 @@
+artifact_uri: file:///c:/Files/Master_SID/S3/MSD/PredectiveMassMLOps/notebooks/mlruns/0/34b8f60d394541a5978933daf325ae47/artifacts
+end_time: 1705442505238
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 34b8f60d394541a5978933daf325ae47
+run_name: RandomForestRegressor
+run_uuid: 34b8f60d394541a5978933daf325ae47
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1705442503092
+status: 3
+tags: []
+user_id: LAMARAMOUZNI

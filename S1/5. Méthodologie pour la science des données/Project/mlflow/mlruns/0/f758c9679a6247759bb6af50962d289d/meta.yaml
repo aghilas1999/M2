@@ -1,0 +1,15 @@
+artifact_uri: file:///c:/Files/Master_SID/S3/MSD/PredectiveMassMLOps/notebooks/mlruns/0/f758c9679a6247759bb6af50962d289d/artifacts
+end_time: 1705441443059
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: f758c9679a6247759bb6af50962d289d
+run_name: LinearRegressor
+run_uuid: f758c9679a6247759bb6af50962d289d
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1705441440049
+status: 3
+tags: []
+user_id: LAMARAMOUZNI

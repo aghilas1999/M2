@@ -1,0 +1,15 @@
+artifact_uri: file:///c:/Files/Master_SID/S3/MSD/PredectiveMassMLOps/notebooks/mlruns/0/e7051789a6b84c17862597ec6d153c3f/artifacts
+end_time: 1705089345897
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: e7051789a6b84c17862597ec6d153c3f
+run_name: efficient-cub-158
+run_uuid: e7051789a6b84c17862597ec6d153c3f
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1705089168861
+status: 3
+tags: []
+user_id: LAMARAMOUZNI

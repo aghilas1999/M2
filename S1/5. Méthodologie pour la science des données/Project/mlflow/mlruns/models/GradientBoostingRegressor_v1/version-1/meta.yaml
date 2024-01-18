@@ -1,0 +1,16 @@
+aliases: []
+creation_timestamp: 1705163738933
+current_stage: Staging
+description: ''
+last_updated_timestamp: 1705163836560
+name: GradientBoostingRegressor_v1
+run_id: f65eb403c9724f758f20492a6057d1bb
+run_link: ''
+source: file:///c:/Files/Master_SID/S3/MSD/PredectiveMassMLOps/notebooks/mlruns/0/f65eb403c9724f758f20492a6057d1bb/artifacts/Gradient
+  Boosting Regressor
+status: READY
+status_message: null
+storage_location: file:///c:/Files/Master_SID/S3/MSD/PredectiveMassMLOps/notebooks/mlruns/0/f65eb403c9724f758f20492a6057d1bb/artifacts/Gradient
+  Boosting Regressor
+user_id: null
+version: 1

@@ -1,0 +1,15 @@
+artifact_uri: file:///c:/Files/Master_SID/S3/MSD/PredectiveMassMLOps/notebooks/mlruns/0/18dd64ee241448cd9d94971872cd69da/artifacts
+end_time: 1705089465246
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 18dd64ee241448cd9d94971872cd69da
+run_name: selective-colt-958
+run_uuid: 18dd64ee241448cd9d94971872cd69da
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1705089348906
+status: 3
+tags: []
+user_id: LAMARAMOUZNI
