@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="podami">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/Code/Code/HypReduction_multithread/podami.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -140,6 +140,58 @@ Donne le dataset le plus grand.
  2840.0 ms
 
 
+------------------------------------------------------
+*  Kosarak : 
+
+  - kosarak.dat.99000.pos.su.compl.hyp : 
+
+PS C:\Users\aghil\OneDrive\Bureau\Master-2-SID-\S1\TER> java -Xmx2000m -cp Code\Code\fibad\podami.jar  podami.hypergraph.reduction.HR Hypergraphes_Datasets_Expes\kosarak\kosarak.dat.99000.pos.su.compl.hyp true  
+2.0 ms
+PS C:\Users\aghil\OneDrive\Bureau\Master-2-SID-\S1\TER> java -Xmx2000m -cp Code\Code\HypReduction_multithread\podami.jar  podami.hypergraph.reductionmulti.HRmulti Hypergraphes_Datasets_Expes\kosarak\kosarak.dat.99000.pos.su.compl.hyp true 4          
+6.0 ms
+PS C:\Users\aghil\OneDrive\Bureau\Master-2-SID-\S1\TER> java -Xmx2000m -cp Code\Code\HypReduction_multithread\podami.jar  podami.hypergraph.reductionmulti.HRmulti Hypergraphes_Datasets_Expes\kosarak\kosarak.dat.99000.pos.su.compl.hyp true 8
+3.0 ms
+
+  - kosarak.dat.19800.pos.su.compl.hyp : 
+
+PS C:\Users\aghil\OneDrive\Bureau\Master-2-SID-\S1\TER> java -Xmx2000m -cp Code\Code\fibad\podami.jar  podami.hypergraph.reduction.HR Hypergraphes_Datasets_Expes\kosarak\kosarak.dat.19800.pos.su.compl.hyp true     
+34.0 ms
+PS C:\Users\aghil\OneDrive\Bureau\Master-2-SID-\S1\TER> java -Xmx2000m -cp Code\Code\HypReduction_multithread\podami.jar  podami.hypergraph.reductionmulti.HRmulti Hypergraphes_Datasets_Expes\kosarak\kosarak.dat.19800.pos.su.compl.hyp true 4    
+39.0 ms
+PS C:\Users\aghil\OneDrive\Bureau\Master-2-SID-\S1\TER> java -Xmx2000m -cp Code\Code\HypReduction_multithread\podami.jar  podami.hypergraph.reductionmulti.HRmulti Hypergraphes_Datasets_Expes\kosarak\kosarak.dat.19800.pos.su.compl.hyp true 8
+33.0 ms
+
+  - kosarak.dat.4950.pos.su.compl.hyp : 
+
+PS C:\Users\aghil\OneDrive\Bureau\Master-2-SID-\S1\TER> java -Xmx2000m -cp Code\Code\fibad\podami.jar  podami.hypergraph.reduction.HR Hypergraphes_Datasets_Expes\kosarak\kosarak.dat.4950.pos.su.compl.hyp true      
+1037.0 ms
+PS C:\Users\aghil\OneDrive\Bureau\Master-2-SID-\S1\TER> java -Xmx2000m -cp Code\Code\HypReduction_multithread\podami.jar  podami.hypergraph.reductionmulti.HRmulti Hypergraphes_Datasets_Expes\kosarak\kosarak.dat.4950.pos.su.compl.hyp true 4 
+903.0 ms
+PS C:\Users\aghil\OneDrive\Bureau\Master-2-SID-\S1\TER> java -Xmx2000m -cp Code\Code\HypReduction_multithread\podami.jar  podami.hypergraph.reductionmulti.HRmulti Hypergraphes_Datasets_Expes\kosarak\kosarak.dat.4950.pos.su.compl.hyp true 8 
+1703.0 ms
+
+
+* mushroom : 
+
+
+  - mushroom.dat.244.pos.su.compl.hyp:
+
+  * Avec la méthode de base : 
+
+  PS C:\Users\aghil\OneDrive\Bureau\Master-2-SID-\S1\TER> java -Xmx2000m -cp Code\Code\fibad\podami.jar  podami.hypergraph.reduction.HR Hypergraphes_Datasets_Expes\mushroom\mushroom.dat.244.pos.su.compl.hyp true     
+  1047148.0 ms 
+  
+  * Avec 4 CPUs : 
+  
+  PS C:\Users\aghil\OneDrive\Bureau\Master-2-SID-\S1\TER> java -Xmx2000m -cp Code\Code\HypReduction_multithread\podami.jar  podami.hypergraph.reductionmulti.HRmulti Hypergraphes_Datasets_Expes\mushroom\mushroom.dat.244.pos.su.compl.hyp true 4
+  9470170 ms
+  
+  * Avec 8 CPUs :
+
+  PS C:\Users\aghil\OneDrive\Bureau\Master-2-SID-\S1\TER> java -Xmx2000m -cp Code\Code\HypReduction_multithread\podami.jar  podami.hypergraph.reductionmulti.HRmulti Hypergraphes_Datasets_Expes\mushroom\mushroom.dat.244.pos.su.compl.hyp true 8
+  860446.0 ms
+ 
+ 
  Calculer la distance
  
  

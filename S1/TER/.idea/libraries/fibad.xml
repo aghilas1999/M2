@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="fibad">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/Code/Code/fibad/spmfmodif.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Code/Code/fibad/podami.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
