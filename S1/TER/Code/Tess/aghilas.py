@@ -9,52 +9,41 @@ start_time = time.time()
 class HyperGraph:
     def __init__(self, edges):
         self.nodes = set()
-        self.edges = edges  # Ajouter l'attribut edges pour stocker les hyper-arêtes originales
+        self.edges = edges
         for edge in edges:
             self.nodes |= set(edge)
-        self.adjacency_lists = defaultdict(list)
-        for edge in edges:
-            for node in edge:
-                self.adjacency_lists[node].extend(edge - {node})
-
+            
     def min_transversals(self):
         min_transversals = set()
-        cut_queue = [(frozenset(self.nodes), frozenset())]
+        covered_edges = set()
 
-        while cut_queue:
-            current_cut, current_transversal = heappop(cut_queue)
+        # Tant qu'il reste des arêtes non couvertes
+        while len(covered_edges) != len(self.edges):
+            # Sélectionner le sommet qui couvre le plus grand nombre d'arêtes non couvertes
+            best_node = max(self.nodes, key=lambda node: len([edge for idx, edge in enumerate(self.edges) if idx not in covered_edges and node in edge]))
+            # Ajouter ce sommet au transversal minimal
+            transversal = {best_node}
+            # Mettre à jour l'ensemble des arêtes couvertes
+            for idx, edge in enumerate(self.edges):
+                if best_node in edge:
+                    covered_edges.add(idx)
+            # Ajouter le transversal minimal trouvé à l'ensemble des transversaux minimaux
+            min_transversals.add(frozenset(transversal))
 
-            if not current_cut:
-                min_transversals.add(current_transversal)
-                continue
-
-            node = next(iter(current_cut))
-            new_transversal_with_node = frozenset(current_transversal | {node})
-            new_cut_with_node = frozenset(current_cut - {node} - set(self.adjacency_lists[node]))
-            heappush(cut_queue, (new_cut_with_node, new_transversal_with_node))
-
-            for neighbor in self.adjacency_lists[node]:
-                if neighbor in current_cut:
-                    new_transversal_without_node = frozenset(current_transversal | {neighbor})
-                    new_cut_without_node = frozenset(current_cut - {node} - {neighbor} - set(self.adjacency_lists[neighbor]))
-                    heappush(cut_queue, (new_cut_without_node, new_transversal_without_node))
-        
-        
         return min_transversals
+    
       
-      
-      
-    def reduce_hyperedges(self, reduction_percentage=5):
-        reduced_edges = set()
+    def reduce_hyperedges_improved(self, reduction_percentage=10):
+        if reduction_percentage >= 100:
+            raise ValueError("Reduction percentage must be less than 100.")
+        
+        reduced_edges = []
         for edge in self.edges:
-            num_elements_to_keep = max(1, len(edge) * reduction_percentage // 100)
-            edge_set = set(edge)  # Convertir l'ensemble en un autre ensemble (copie)
-            edge_list = list(edge_set)  # Convertir edge_set en une liste
-            reduced_edge_list = random.sample(edge_list, num_elements_to_keep)
-            reduced_edge = set(reduced_edge_list)
-            reduced_edges.add(frozenset(reduced_edge))
+            num_elements_to_keep = max(1, int(len(edge) * (reduction_percentage / 100)))
+            reduced_edge = random.sample(list(edge), num_elements_to_keep)
+            reduced_edges.append(set(reduced_edge))
 
-        return HyperGraph(list(reduced_edges))
+        return HyperGraph(reduced_edges)
 
     def print_hyperedges(self):
         for edge in self.edges:
@@ -64,7 +53,7 @@ class HyperGraph:
 # Le reste de votre code reste inchangé
 
 # Convertir hypergraph_data en une liste de sets
-file_path = r"C:\Users\aghil\OneDrive\Bureau\Master-2-SID-\S1\TER\Hypergraphes_Datasets_Expes\accidents\ac_200k.dat"
+file_path = r"C:\Users\aghil\OneDrive\Bureau\Master-2-SID-\S1\TER\Hypergraphes_Datasets_Expes\accidents\ac_150k.dat"
 edges = []
 with open(file_path, 'r') as file:
     for line in file:
@@ -73,13 +62,14 @@ with open(file_path, 'r') as file:
 
 # Créer l'instance HyperGraph et trouver les transversaux minimaux
 hypergraph = HyperGraph(edges)
-reduced_hypergraph = hypergraph.reduce_hyperedges(reduction_percentage=5)
-reduced_hypergraph.print_hyperedges()
+
+reduced_hypergraph = hypergraph.reduce_hyperedges_improved(reduction_percentage=5)
+#print(reduced_hypergraph.edges)
+# reduced_hypergraph.print_hyperedges()
 
 reduced_results = reduced_hypergraph.min_transversals()
 
 resultats_sans_frozenset = [tuple(transversal) for transversal in reduced_results]
-
 print("Transversals minimaux :\n", resultats_sans_frozenset)
 
 end_time = time.time()

@@ -43,7 +43,7 @@ class HyperGraph:
         return min_transversals
 
 # Convertir hypergraph_data en une liste de sets
-file_path = r"C:\Users\aghil\OneDrive\Bureau\Master-2-SID-\S1\TER\Hypergraphes_Datasets_Expes\accidents\ac_150k.dat"  # Remplacez par le chemin de votre fichier
+file_path = r"C:\Users\aghil\OneDrive\Bureau\Master-2-SID-\S1\TER\Hypergraphes_Datasets_Expes\accidents\ac_200k.dat"  # Remplacez par le chemin de votre fichier
 edges = []
 with open(file_path, 'r') as file:
     for line in file:
