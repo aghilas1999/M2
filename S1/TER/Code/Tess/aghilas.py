@@ -38,17 +38,22 @@ class HyperGraph:
 
         return min_transversals
     
-      
+    # Fonction qui permet de réduire l'hyper graphe
     def reduce_hyperedges_improved(self, reduction_percentage=10):
+        # Condition si le seuil est égale a 100 alors c'est faut 
         if reduction_percentage >= 100:
             raise ValueError("Reduction percentage must be less than 100.")
-        
+        # variable pour stocké les arret reduit
         reduced_edges = []
+        # boucle pour parcourire tout les arret de l'hyer-arret
         for edge in self.edges:
-            num_elements_to_keep = max(1, int(len(edge) * (reduction_percentage / 100)))
-            reduced_edge = random.sample(list(edge), num_elements_to_keep)
+            edfreduit = max(1, int(len(edge) * (reduction_percentage / 100)))
+            # La fonction random pour prendre un random des arretes.
+            reduced_edge = random.sample(list(edge), edfreduit)
+            # Ajoute la valeur random dans la liste reduced_edges.
             reduced_edges.append(set(reduced_edge))
 
+        # retourner un hyper graphe réduite.
         return HyperGraph(reduced_edges)
 
     # fonction pour afficher soit le graphe de base soit celui qui est réduit.  
