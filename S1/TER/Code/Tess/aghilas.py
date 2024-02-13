@@ -5,22 +5,28 @@ from heapq import heappush, heappop
 
 # Enregistrer le temps de début
 start_time = time.time()
-
+#Classe HyperGraph
 class HyperGraph:
+    
+    #Le constructeur de la classe HyperGraphe
     def __init__(self, edges):
+        # Variable pour stocker tout les sommetes de l'hyper graphe et qui sont unique
         self.nodes = set()
+        # Stocker les arret de l'hyper graphe
         self.edges = edges
+        # Parcourir toutes le graphe et ajouter les sommet trouver dans la variable self.node
         for edge in edges:
             self.nodes |= set(edge)
             
     def min_transversals(self):
+        #Variable pour stocker les transversaux minimaux
         min_transversals = set()
         covered_edges = set()
 
         # Tant qu'il reste des arêtes non couvertes
         while len(covered_edges) != len(self.edges):
             # Sélectionner le sommet qui couvre le plus grand nombre d'arêtes non couvertes
-            best_node = max(self.nodes, key=lambda node: len([edge for idx, edge in enumerate(self.edges) if idx not in covered_edges and node in edge]))
+            best_node = min(self.nodes, key=lambda node: len([edge for idx, edge in enumerate(self.edges) if idx not in covered_edges and node in edge]))
             # Ajouter ce sommet au transversal minimal
             transversal = {best_node}
             # Mettre à jour l'ensemble des arêtes couvertes
@@ -45,15 +51,19 @@ class HyperGraph:
 
         return HyperGraph(reduced_edges)
 
+    # fonction pour afficher soit le graphe de base soit celui qui est réduit.  
     def print_hyperedges(self):
         for edge in self.edges:
             print(edge)
 
 
-# Le reste de votre code reste inchangé
 
-# Convertir hypergraph_data en une liste de sets
+'''############ LE MAIN #############'''
+'''########################'''
+
+# Le chemin de dataset a utilisé
 file_path = r"C:\Users\aghil\OneDrive\Bureau\Master-2-SID-\S1\TER\Hypergraphes_Datasets_Expes\accidents\ac_150k.dat"
+'''Fonction qui permet de stocker tout les arret de graphe pour aprés les donnée comme parametre dans le contructeur __init__'''
 edges = []
 with open(file_path, 'r') as file:
     for line in file:

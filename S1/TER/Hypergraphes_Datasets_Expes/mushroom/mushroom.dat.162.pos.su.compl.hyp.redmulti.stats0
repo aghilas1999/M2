@@ -1,7 +1,7 @@
 # Stats bordure reelle : nbMotifs= 1600 ; taillemin = 93 ; taillemax = 113 ; taillemoy = 106.065625
-# Stats bordure approx : nbMotifs= 0 ; taillemin = 2147483647 ; taillemax = 0 ; taillemoy = NaN
-# distance3 cosine = 8.988465674311579E307
-# Nb motifs communs = 0
-# Precision = NaN
-# Rappel = 0.0
-# 0 & 0 & 8,988465674311579E307 \\
+# Stats bordure approx : nbMotifs= 1600 ; taillemin = 93 ; taillemax = 113 ; taillemoy = 106.065625
+# distance3 cosine = 0.0
+# Nb motifs communs = 1600
+# Precision = 1.0
+# Rappel = 1.0
+# 1600 & 1600 & 0,0 \\

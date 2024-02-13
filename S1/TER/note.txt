@@ -254,7 +254,10 @@ java -Xmx2000m -cp Code\Code\HypReduction_multithread\podami.jar  podami.hypergr
 
 java -Xmx2000m -cp Code\Code\fibad\podami.jar  podami.hypergraph.reduction.HR Hypergraphes_Datasets_Expes\mushroom\mushroom.dat.162.pos.su.compl.hyp true
 5795785.0 ms
-
+java -Xmx2000m -cp Code\Code\HypReduction_multithread\podami.jar  podami.hypergraph.reductionmulti.HRmulti Hypergraphes_Datasets_Expes\mushroom\mushroom.dat.162.pos.su.compl.hyp true 4
+6753702.0 ms
+java -Xmx2000m -cp Code\Code\HypReduction_multithread\podami.jar  podami.hypergraph.reductionmulti.HRmulti Hypergraphes_Datasets_Expes\mushroom\mushroom.dat.162.pos.su.compl.hyp true 6    
+5189010.0 ms
 
 -mushroom.dat.244.pos.su.compl.hyp:
 
