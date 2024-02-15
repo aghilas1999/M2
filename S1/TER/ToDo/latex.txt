@@ -1,0 +1,216 @@
+    \documentclass[a4paper,12pt]{article}
+\usepackage{amsmath}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{titlesec}
+\usepackage{lipsum}
+\usepackage{listings} % For including code snippets
+\usepackage{xcolor}    % For defining colors
+\usepackage{biblatex}
+\usepackage[linesnumbered,ruled,vlined]{algorithm2e}
+
+\geometry{margin=1in}
+
+\titleformat{\section}{\normalfont\Large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalfont\large\bfseries}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\normalfont\normalsize\bfseries}{\thesubsubsection}{1em}{}
+\renewcommand{\maketitle}{
+    \begin{titlepage}
+        \centering
+        \includegraphics[width=15cm]{logo.png}\\[1cm]
+        \vspace{1.5cm}
+        \HRule \\[0.2cm]
+        {\huge\bfseries Motif Project\par}
+        \HRule \\[1.5cm]
+        \textsc{Master 2 Informatique (SID)\\2023-2024}\\[2.5cm]
+        \begin{minipage}{0.4\textwidth}
+            \begin{flushleft}
+                \large
+                \textit{Auteurs:}\\
+                Idriss FELLOUSSI\\
+                Aghilas SMAIL 
+                
+            \end{flushleft}
+        \end{minipage}
+        \begin{minipage}{0.4\textwidth}
+            \begin{flushright}
+                \large
+                \textit{Encadrant:}\\
+                Nicolas Durand \\
+                QUAFAFOU Mohamed
+            \end{flushright}
+        \end{minipage}\\[2cm]
+        {\large \today}\\[2cm]
+        \vfill
+    \end{titlepage}
+}
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+\section{Présentation du Sujet}
+\hspace*{0.6cm}La recherche de motifs fréquents constitue un domaine dynamique au sein de l'informatique et de l'exploration de données, évoluant de manière significative au fil des années. Cette discipline se concentre sur l'identification de schémas récurrents au sein de vastes ensembles de données, offrant des perspectives précieuses pour la découverte de connaissances cachées et la prise de décisions éclairées. Depuis ses premières incursions dans le paysage de la recherche, la quête de motifs fréquents a connu un développement rapide, alimenté par les avancées constantes dans les algorithmes, les techniques d'exploration de données et les applications pratiques.
+\newline
+
+Dans cette introduction, nous explorerons l'évolution de la recherche de motifs fréquents, en mettant en lumière les progrès marquants qui ont façonné ce domaine au fil du temps. De la naissance des premiers algorithmes pionniers tels que l'algorithme Apriori introduit par Agrawal et Srikant en 1994 à l'émergence de techniques sophistiquées exploitant la puissance du calcul distribué, cette évolution a été le résultat d'une synergie entre la demande croissante pour l'analyse de données complexes et les innovations constantes dans le domaine de l'informatique.
+\newline
+
+Au cours des dernières décennies, la recherche de motifs fréquents a trouvé des applications diverses, de la gestion de bases de données à la bioinformatique en passant par le commerce électronique. Ces applications variées ont contribué à affiner les méthodes et à stimuler la recherche, générant des solutions de plus en plus efficaces pour traiter des ensembles de données de plus en plus volumineux et complexes.
+\newline
+
+Cette revue abordera les principaux jalons de l'évolution de la recherche de motifs fréquents, soulignant les défis rencontrés, les solutions élaborées et les perspectives prometteuses pour l'avenir. En analysant l'histoire de cette discipline, nous pourrons mieux appréhender les fondements conceptuels qui sous-tendent les approches contemporaines et anticiper les directions futures que pourrait emprunter la recherche de motifs fréquents.
+
+\section{État de l'Art}
+% Votre texte ici
+\subsection{Approximation des Motifs Fréquents (AGM04)}
+
+\hspace*{0.2cm} L'approximation d'une collection de motifs fréquents par les \(k\) meilleurs ensembles couvrants a été étudiée dans \cite{AGM04}. Les auteurs ont expliqué les difficultés liées à l'utilisation d'un algorithme glouton d'approximation à partir de la bordure positive pour obtenir \(k\) ensembles couvrants faisant partie de la collection initiale.
+
+\subsection{Approximation des Bordures Positives et Négatives (Bol07)}
+
+\hspace*{0.5cm}L'approximation de bordures positives et de bordures négatives a été étudiée algorithmiquement dans \cite{Bol07}. L'auteur montre qu'il y a une forte indication qu'il n'y a pas d'algorithme d'approximation raisonnable pour le calcul de la bordure positive. En revanche, le calcul de la bordure négative peut être approximé par un algorithme glouton en temps polynomial.
+
+\subsection{Calcul de Traverses Minimales (RZC10)}
+\hspace*{0.8cm}Le but est de trouver le plus petit ensemble de sommets (ou hyperarêtes) qui touche toutes les hyperarêtes de l'hypergraphe au moins une fois.
+\newline
+
+\hspace*{0.2cm}La recherche de ces traverses minimales est un problème \textbf{NP-difficile}  qui attire l'attention de plusieurs domaines tels que la théorie des graphes, la logique et la fouille de données. Bien que les algorithmes d'approximation pour trouver ces ensembles soient limités, plusieurs approches ont été explorées pour y parvenir. Certains chercheurs proposent d'évaluer le coût pour créer un ensemble approximatif de traverses minimales, tandis que d'autres se concentrent sur l'obtention d'un petit nombre de ces ensembles de manière approximative.
+\newline
+
+\hspace*{0.2cm}L'algorithme présenté dans \cite{RZC10}, appelé \(\delta\)-MT en référence à MT miner \cite{HBC07}, est capable de produire des traverses minimales qui peuvent ne pas intersecter jusqu'à \(\delta\) hyperarêtes d'un hypergraphe, offrant une perspective unique sur l'approximation dans le contexte des problèmes NP-difficiles liés aux hypergraphes.
+
+\subsection{l'approche d'approximation de bordures}
+
+\hspace*{0.2cm} Dans cette méthode, adoptons une approche novatrice pour le calcul des traverses minimales approximées, distincte de celles précédemment évoquées. La stratégie consiste premièrement à appliquer un processus de \textbf{réduction sur l'hypergraphe initial}. Suite à cette réduction, procédons au calcul des \textbf{traverses minimales} sur l'hypergraphe simplifié. Les traverses obtenues sont alors considérées comme des approximations valables pour l'hypergraphe original.
+\newline
+
+\textbf{Définition 1 (Bordures positive et négative):} 
+La bordure positive (resp. négative) de $S$, notée $\text{Bd}^+(S)$ (resp. $\text{Bd}^-(S)$), est constituée par les motifs fréquents maximaux (resp. infréquents minimaux) (au sens de l'inclusion) de $D$. 
+\[
+\text{Bd}^+(S) = \{X \in S \mid \forall Y \text{ tq } X \subset Y, Y \notin S\}
+\]
+\[
+\text{Bd}^-(S) = \{X \in 2^I \setminus S \mid \forall Y \text{ tq } Y \subset X, Y \in S\}
+\]
+\newline
+
+\textbf{Définition 2 (Hypergraphe) :} 
+Un hypergraphe $H = (V, E)$ est constitué d'un ensemble $V$ de sommets et d'un ensemble $E$ d'hyperarêtes. Chaque hyperarête $e \in E$ est un ensemble de sommets inclus ou égal à $V$.
+\newline
+
+\textbf{Définition 3 (Traverse et traverse minimale):}
+Soit $H$ un hypergraphe, l'ensemble de ses traverses est défini par $\text{Tr}(H) = \{\tau \subseteq V \mid \forall e_i \in E, \tau \cap e_i \neq \emptyset\}$. Une traverse $\tau$ de $H$ est dite minimale si et seulement si aucun de ses sous-ensembles n'est une traverse de $H$. L'ensemble des traverses minimales de $H$ est noté $\text{MinTr}(H)$.
+\newpage
+\section{Solution Proposée}
+\hspace*{0.5cm}Dans le cadre de l'évolution continue de la recherche sur les motifs fréquents, une nouvelle approche prometteuse se distingue : l'approche probabiliste. Cette méthode innovante se propose de révolutionner le calcul des motifs fréquents en s'affranchissant des limites des techniques traditionnelles, souvent confrontées à des difficultés d'échelle et de complexité avec l'augmentation du volume de données. L'approche probabiliste, en se basant sur des modèles statistiques et des probabilités, vise à estimer la fréquence des motifs de manière plus flexible et moins coûteuse en ressources. En introduisant un cadre de calcul qui accepte une certaine marge d'erreur contrôlée, cette méthode permet de traiter des ensembles de données massifs de manière plus efficace, offrant ainsi une solution viable pour les applications nécessitant une analyse rapide et à grande échelle. Ce tournant conceptuel pourrait non seulement accélérer le processus de découverte de motifs fréquents mais aussi ouvrir la voie à de nouvelles perspectives dans l'exploration de données, en facilitant l'extraction de connaissances précieuses et jusqu'alors inaccessibles à cause des contraintes techniques.
+\subsection{Une approche probabiliste}
+% Votre texte ici
+\hspace*{0.5cm} L'approche probabiliste pour le calcul des motifs fréquents, en particulier dans le contexte des hypergraphes, s'enrichit d'une stratégie de réduction innovante visant à optimiser le traitement des données. Cette méthode consiste à appliquer une réduction ciblée de l'hypergraphe initial par des pourcentages prédéfinis, tels que \textbf{5\%}, \textbf{10\%}, et ainsi de suite. L'objectif est de simplifier la structure de l'hypergraphe en diminuant le nombre d'hyperarêtes et de sommets, tout en préservant une représentation fidèle des relations complexes qu'il encapsule.
+\newline
+
+En réduisant systématiquement l'hypergraphe de manière contrôlée, cette approche permet de réduire significativement la complexité du calcul des transversaux, c'est-à-dire des ensembles de sommets qui intersectent chaque hyperarête de l'hypergraphe. Le calcul des transversaux, étant au cœur de l'identification des motifs fréquents dans de nombreux domaines d'application, se trouve ainsi grandement facilité. La réduction de l'hypergraphe permet non seulement d'accélérer le processus de calcul en réduisant la taille de l'espace de recherche, mais offre également la possibilité d'atteindre une approximation des transversaux minimales avec une efficacité accrue
+\newline
+
+Cette méthode utilise des processus aléatoires ou probabilistes pour sélectionner les sommets ou les hyperarêtes à fusionner. L'aspect stochastique de l'approche permet de gérer la complexité et la diversité des structures des hypergraphes en introduisant une flexibilité qui peut être avantageuse pour explorer différentes configurations de réduction tout en préservant certaines propriétés structurelles clés de l'hypergraphe original.
+\newline
+
+L'utilisation d'une approche stochastique pour la réduction des hypergraphes est particulièrement utile dans plusieurs contextes :
+
+\begin{itemize}
+    \item \textbf{Grande variabilité des propriétés :} Quand il y a une grande variabilité dans les propriétés des sommets et des hyperarêtes, une approche déterministe pourrait être biaisée ou insuffisante pour capturer la complexité de l'hypergraphe.
+    \item \textbf{Préservation des propriétés statistiques :} L'objectif de préserver certaines propriétés statistiques de l'hypergraphe original, comme la distribution des degrés des sommets, les motifs de connexion, etc., peut être mieux atteint avec une approche probabiliste.
+    \item \textbf{Obtention de différentes instances :} Pour obtenir différentes instances de l'hypergraphe réduit pour des analyses de sensibilité ou pour évaluer l'impact de la réduction sur des tâches spécifiques (par exemple, classification, clustering).
+\end{itemize}
+
+
+\section{Expérimentations}
+
+\begin{algorithm}[H]
+    \SetAlgoLined
+    \SetKwInOut{Input}{Entrée}
+    \SetKwInOut{Output}{Sortie}
+    
+    \Input{Une liste d'arêtes $edges$}
+    \BlankLine
+    $nodes \leftarrow$ un ensemble vide\;
+    $self.edges \leftarrow edges$\;
+    
+    \For{chaque arête $edge$ dans les arêtes $edges$}{
+        Ajouter tous les sommets de $edge$ à l'ensemble $nodes$\;
+    }
+    
+    $self.nodes \leftarrow nodes$\;
+    \caption{Initialisation de la classe avec le constructeur $\_\_init\_\_$}
+\end{algorithm}
+
+\vspace{20pt}
+
+\begin{algorithm}[H]
+    \SetAlgoLined
+    \SetKwInOut{Input}{Entrée}
+    \SetKwInOut{Output}{Sortie}
+    
+    \Input{Un pourcentage de réduction $reduction\_percentage$}
+    \Output{Un hypergraphe réduit}
+    
+    \BlankLine
+    \If{$reduction\_percentage \geq 100$}{
+        \textbf{Lever une exception} avec le message "Reduction percentage must be less than 100."\;
+    }
+    
+    $reduced\_edges \leftarrow$ une liste vide\;
+    
+    \For{chaque arête $edge$ dans les arêtes $self.edges$}{
+        $num\_elements\_to\_keep \leftarrow \max(1, \text{arrondi}(\text{longueur de } edge \times (reduction\_percentage / 100)))$\;
+        $reduced\_edge \leftarrow$ sélectionner aléatoirement $num\_elements\_to\_keep$ éléments de $edge$\;
+        Ajouter $reduced\_edge$ (sous forme d'ensemble) à $reduced\_edges$\;
+    }
+    
+    \textbf{Retourner} un nouvel hypergraphe avec $reduced\_edges$\;
+    
+    \caption{Réduction améliorée des hyper-arêtes}
+\end{algorithm}
+
+\vspace{30pt}
+
+
+\begin{algorithm}[H]
+    \SetAlgoLined
+    \SetKwInOut{Input}{Entrée}
+    \SetKwInOut{Output}{Sortie}
+    
+    \Output{Un ensemble de transversaux minimaux}
+    
+    \BlankLine
+    $min\_transversals \leftarrow$ un ensemble vide\;
+    $covered\_edges \leftarrow$ un ensemble vide\;
+
+    \While{le nombre d'arêtes non couvertes n'est pas égal au nombre total d'arêtes}{
+        $best\_node \leftarrow$ le sommet qui couvre le plus grand nombre d'arêtes non couvertes\;
+        $transversal \leftarrow \{best\_node\}$\;
+
+        \For{chaque arête $edge$ non couverte}{
+            \If{$best\_node$ est dans $edge$}{
+                Ajouter l'indice de $edge$ à $covered\_edges$\;
+            }
+        }
+
+        Ajouter $transversal$ à $min\_transversals$\;
+    }
+
+    \textbf{Retourner} $min\_transversals$\;
+    
+    \caption{Détermination des transversaux minimaux}
+\end{algorithm}
+
+
+\section{Conclusion}
+% Votre texte ici
+
+\section*{Annexes}
+% Votre texte ici
+
+\section*{Bibliographie}
+% Votre texte ici
+
+\end{document}
