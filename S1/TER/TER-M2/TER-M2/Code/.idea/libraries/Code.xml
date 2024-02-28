@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="Code">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/fibad.zip!/" />
+      <root url="jar://$PROJECT_DIR$/src.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

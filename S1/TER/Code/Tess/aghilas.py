@@ -34,7 +34,7 @@ class HyperGraph:
         return min_transversals
     
       
-    def reduce_hyperedges_improved(self, reduction_percentage=10):
+    def reduce_hyperedges_improved(self, reduction_percentage=20):
         if reduction_percentage >= 100:
             raise ValueError("Reduction percentage must be less than 100.")
         
@@ -54,7 +54,7 @@ class HyperGraph:
 # Le reste de votre code reste inchangé
 
 # Convertir hypergraph_data en une liste de sets
-file_path = r"C:\Users\aghil\OneDrive\Bureau\Master-2-SID-\S1\TER\Hypergraphes_Datasets_Expes\accidents\ac_150k.dat"
+file_path = r"C:\Users\aghil\OneDrive\Bureau\Master-2-SID-\S1\TER\Hypergraphes_Datasets_Expes\kosarak.dat"
 edges = []
 with open(file_path, 'r') as file:
     for line in file:
