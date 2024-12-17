@@ -1,3 +1,7 @@
+# Référence du livre cité :
+
+Recommender Systems: The Textbook 1st ed. 2016 Edition by Charu C. Aggarwal (Author)
+
 # collaborative-Filtering
 
 En vous basant sur le code présenté en cours, vous aller réaliser un système de recommandation basé sur les utilisateurs et non les items.
